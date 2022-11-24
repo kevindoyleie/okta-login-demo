@@ -115,8 +115,8 @@ public class OktaLoginConfiguration
 
     @Bean
     public ClientRegistrationRepository clientRegistrationRepository(
-            @Value("0oa4kyo0dbuArwXBq0x7") String clientId,
-            @Value("17sdjQo9X4ECBI0r6R2AMH1CNECQVX8YupJP5a0S") String clientSecret,
+            @Value("") String clientId,
+            @Value("") String clientSecret,
             @Value("https://vhihealthcare-test.oktapreview.com/oauth2/default/v1/authorize") String signInUri,
             @Value("https://vhihealthcare-test.oktapreview.com/oauth2/default/v1/token") String tokenEndpointUri,
             @Value("https://vhihealthcare-test.oktapreview.com/oauth2/default/v1/userinfo") String userInfoEndpointUri,
