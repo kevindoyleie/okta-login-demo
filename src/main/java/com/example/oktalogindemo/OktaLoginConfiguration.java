@@ -74,12 +74,14 @@ public class OktaLoginConfiguration
             logger.debug("Temp: oidcUser - " + oidcUser);
             Set<GrantedAuthority> mappedAuthorities = new HashSet<>(oidcUser.getAuthorities());
             mappedAuthorities.add(new SimpleGrantedAuthority("ROLE_USER"));
-            if (oidcUser.getClaim(OktaUser.MEMBER_OF_CLAIM)) {
-                List<String> grantedRoles = oidcUser.getClaimAsStringList(OktaUser.MEMBER_OF_CLAIM);
+            final Boolean claim = oidcUser.getClaimAsBoolean(OktaUser.ROLE_USER);
+            if (claim != null && claim) {
+                List<String> grantedRoles = oidcUser.getClaimAsStringList(OktaUser.ROLE_USER);
                 for (String grantedRole : grantedRoles) {
                     mappedAuthorities.add(new SimpleGrantedAuthority(grantedRole));
                 }
             }
+            oidcUser.getUserInfo();
             return new OktaUser(mappedAuthorities, oidcUser.getIdToken(), oidcUser.getUserInfo(), OktaUser.USER_ID_CLAIM);
         };
     }
@@ -120,7 +122,7 @@ public class OktaLoginConfiguration
             @Value("https://vhihealthcare-test.oktapreview.com/oauth2/default/v1/authorize") String signInUri,
             @Value("https://vhihealthcare-test.oktapreview.com/oauth2/default/v1/token") String tokenEndpointUri,
             @Value("https://vhihealthcare-test.oktapreview.com/oauth2/default/v1/userinfo") String userInfoEndpointUri,
-            @Value("http://localhost:7001/myvhi/login/oauth2/code/okta") String redirectUri,
+            @Value("http://localhost:8080/myvhi/login/oauth2/code/okta") String redirectUri,
             @Value("https://vhihealthcare-test.oktapreview.com/oauth2/default") String issuer,
             @Value("https://vhihealthcare-test.oktapreview.com/oauth2/default/v1/keys") String jwkSetUri,
             @Value("openid,profile,MyVHI.profile") String[] scopes

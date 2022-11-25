@@ -7,5 +7,6 @@ public interface User
     String getUserId();
     String getFirstName();
     String getLastName();
+    String getVhiPartnerId();
     AddressStandardClaim getAddress();
 }

@@ -10,11 +10,14 @@ import java.util.Collection;
 
 public class OktaUser extends DefaultOidcUser implements User
 {
+    public static final String ROLE_USER = "ROLE_USER";
     public static final String MEMBER_OF_CLAIM = "member_of";
 
     public static final String USER_ID_CLAIM = "preferred_username";
     private static final String FIRST_NAME_CLAIM = "given_name";
     private static final String LAST_NAME_CLAIM = "family_name";
+
+    public static final String VHI_PARTNER_ID = "vhiPartnerID";
 
     public OktaUser(final Collection<? extends GrantedAuthority> authorities, final OidcIdToken idToken,
                     final OidcUserInfo userInfo, final String nameAttributeKey)
@@ -53,6 +56,11 @@ public class OktaUser extends DefaultOidcUser implements User
     @Override
     public String getLastName() {
         return getClaim(LAST_NAME_CLAIM);
+    }
+
+    @Override
+    public String getVhiPartnerId() {
+        return getClaim(VHI_PARTNER_ID);
     }
 
     @Override

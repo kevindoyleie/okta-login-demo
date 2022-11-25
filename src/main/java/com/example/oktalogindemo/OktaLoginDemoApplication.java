@@ -16,6 +16,7 @@ public class OktaLoginDemoApplication
 
     public static void main(String[] args)
     {
+        System.setProperty("server.servlet.context-path", "/myvhi");
         SpringApplication.run(OktaLoginDemoApplication.class, args);
     }
 
@@ -27,7 +28,7 @@ public class OktaLoginDemoApplication
             return "home";
         }
 
-        @GetMapping("/profile")
+        @GetMapping("/myvhi")
         @PreAuthorize("hasAuthority('SCOPE_profile')")
         public ModelAndView userDetails(OAuth2AuthenticationToken authentication) {
             return new ModelAndView("userProfile" , Collections.singletonMap("details", authentication.getPrincipal().getAttributes()));
